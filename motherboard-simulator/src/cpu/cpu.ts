@@ -1,19 +1,39 @@
 class CPU {
-    speed: number;
-    cores: number;
+  speed: number;
+  cores: number;
+  registerBits: number;
+  constructor(speed: number, cores: number, registerBits: number = 1) {
+    this.speed = speed;
+    this.cores = cores;
+    this.registerBits = registerBits;
+  }
 
-    constructor(speed: number, cores: number) {
-        this.speed = speed;
-        this.cores = cores;
-    }
+  executeInstruction(instruction: Instruction): void {
+    console.log(`Executing instruction: ${instruction}`);
+  }
 
-    executeInstruction(instruction: string): void {
-        console.log(`Executing instruction: ${instruction}`);
-    }
-
-    getStatus(): string {
-        return `CPU Speed: ${this.speed} GHz, Cores: ${this.cores}`;
-    }
+  registerString(value: number): string {
+    return `${value.toString(16).padStart(this.registerBits, "0")}`;
+  }
+  getStatus(): string {
+    return `CPU Speed: ${this.speed} GHz, Cores: ${this.cores}`;
+  }
 }
 
-export default CPU;
+class Instruction {
+  opcode: string;
+  operands: any[];
+
+  constructor(opcode: string, operands: any[] = []) {
+    this.opcode = opcode;
+    this.operands = operands;
+  }
+  execute(cpu: CPU, operands: number[]): void {
+    throw new Error("Method 'execute' must be implemented.");
+  }
+  toString(): string {
+    return `${this.opcode} ${this.operands.join(", ")}`;
+  }
+}
+
+export { CPU, Instruction };

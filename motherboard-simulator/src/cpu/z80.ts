@@ -1,4 +1,5 @@
-import CPU from "./cpu";
+import { CPU } from "./cpu";
+import { Instruction } from "./z80instructions";
 
 class Z80CPU extends CPU {
   registers: { [key: string]: number };
@@ -6,35 +7,41 @@ class Z80CPU extends CPU {
   sp: number; // Stack Pointer
 
   constructor(speed: number = 3.5, cores: number = 1) {
-    super(speed, cores);
+    super(speed, cores, 4);
     this.registers = {
       A: 0,
-      F: 0,
       B: 0,
-      C: 0,
       D: 0,
-      E: 0,
       H: 0,
+
+      F: 0,
+      C: 0,
+      E: 0,
       L: 0,
-      IX: 0,
-      IY: 0,
-      I: 0,
-      R: 0,
     };
     this.pc = 0;
     this.sp = 0xffff;
   }
 
-  executeInstruction(instruction: string): void {
+  executeInstruction(instruction: Instruction): void {
     // Simple simulation of instruction execution
     console.log(`[Z80] Executing: ${instruction}`);
-    // Example: increment PC for each instruction
-    this.pc += 1;
+    instruction.execute(this, instruction.operands);
   }
 
   getStatus(): string {
-    return `[Z80] PC: ${this.pc}, SP: ${this.sp}, Registers: ${JSON.stringify(
-      this.registers
+    return `[Z80] PC: ${this.registerString(this.pc)} SP: ${this.registerString(
+      this.sp
+    )}
+      A: ${this.registerString(this.registers.A)} B: ${this.registerString(
+      this.registers.B
+    )} D: ${this.registerString(this.registers.D)} H: ${this.registerString(
+      this.registers.D
+    )}
+      F: ${this.registerString(this.registers.F)} C: ${this.registerString(
+      this.registers.C
+    )} E: ${this.registerString(this.registers.E)} L: ${this.registerString(
+      this.registers.L
     )}`;
   }
 }
