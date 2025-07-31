@@ -1,0 +1,27 @@
+{
+  "name": "motherboard-simulator",
+  "version": "1.0.0",
+  "description": "A simulator for a motherboard including CPU and RAM.",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.0.0",
+    "@types/node": "^14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/motherboard-simulator.git"
+  },
+  "keywords": [
+    "motherboard",
+    "simulator",
+    "cpu",
+    "ram"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
